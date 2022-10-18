@@ -41,3 +41,10 @@ titanic %>%
        y = "Passenger Age",
        title = "Passenger Age by Passenger Class")
 ```
+
+```{r}
+# get percentage of males and females by class
+table <- table(titanic$Sex, titanic$Pclass)
+
+prop.table(table)
+```
