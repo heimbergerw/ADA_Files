@@ -1,0 +1,43 @@
+---
+title: "Midterm"
+author: "Scott Heimberger"
+date: "2022-10-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# importing the dataset
+titanic <- read_csv("https://raw.githubusercontent.com/kijohnson/Data/main/titanic.csv")
+```
+
+```{r}
+# getting the median age by passenger class using the summary function
+by(titanic$Age, titanic$Pclass, summary)
+```
+
+```{r}
+# creating a boxplot to show medians, spread of data, and outliers for the age varaible by passenger class
+library(ggplot2)
+
+# first check the datatype of Pclass, as it needs to be a factor variable
+class(titanic$Pclass)
+
+# recode Pclass to a factor variable
+titanic$Pclass <- as.factor(titanic$Pclass)
+
+# examine the Pclass variable to check for NA values, which would need to be excluded from the graph 
+summary(titanic$Pclass)
+
+# create the boxplot
+titanic %>%
+  ggplot()+
+  geom_boxplot(aes(x=Pclass, y=Age, fill=Pclass), show.legend = FALSE) +
+  theme_bw() +
+  labs(x = "Passenger Class",
+       y = "Passenger Age",
+       title = "Passenger Age by Passenger Class")
+```
